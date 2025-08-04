@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>회원가입 양식</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container my-5" style="max-width: 600px;">
+    <h2 class="mb-4">회원가입</h2>
+    <form id="form" action="#" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="idInput" class="form-label">아이디</label>
+        <input id="idInput" name="id" type="text" class="form-control" placeholder="아이디" autocomplete="off" required />
+        <div class="invalid-feedback">아이디를 입력해주세요.</div>
+      </div>
+      <div class="mb-3">
+        <label for="pw1Input" class="form-label">비밀번호</label>
+        <input id="pw1Input" name="pw1" type="password" class="form-control" placeholder="비밀번호" required />
+        <div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+      </div>
+      <div class="mb-3">
+        <label for="pw2Input" class="form-label">비밀번호 확인</label>
+        <input id="pw2Input" name="pw2" type="password" class="form-control" placeholder="비밀번호 확인" required />
+        <div class="invalid-feedback">비밀번호 확인이 필요합니다.</div>
+      </div>
+      <div class="mb-3">
+        <label for="nameInput" class="form-label">이름</label>
+        <input id="nameInput" name="name" type="text" class="form-control" placeholder="사용자 이름" autocomplete="off" required />
+        <div class="invalid-feedback">이름을 입력해주세요.</div>
+      </div>
+      <div class="mb-3">
+        <label for="phoneInput" class="form-label">전화번호</label>
+        <input id="phoneInput" name="phone" type="tel" class="form-control" placeholder="휴대전화 번호" autocomplete="off" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">성별</label>
+        <div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="남자" checked />
+            <label class="form-check-label" for="maleRadio">남자</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="여자" />
+            <label class="form-check-label" for="femaleRadio">여자</label>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="emailInput" class="form-label">이메일</label>
+        <input id="emailInput" name="email" type="email" class="form-control" placeholder="이메일" title="정확한 메일 주소를 작성해주세요." required />
+        <div class="invalid-feedback">유효한 이메일을 입력해주세요.</div>
+      </div>
+      <div class="mb-3">
+        <label for="birthdateInput" class="form-label">생년월일</label>
+        <input id="birthdateInput" name="birthdate" type="date" class="form-control" required />
+        <div class="invalid-feedback">생년월일을 입력해주세요.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">가입</button>
+    </form>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const form = document.getElementById("form");
+    form.addEventListener("submit", function(event){
+      event.preventDefault();
+      
+      let userID = form.id.value.trim();
+      let userPw1 = form.pw1.value;
+      let userPw2 = form.pw2.value;
+      let userName = form.name.value.trim();
+      let userPhone = form.phone.value.trim() || "미입력";
+      let userGender = form.gender.value;
+      let userEmail = form.email.value.trim() || "미입력";
+      let userBirthdate = form.birthdate.value;
+
+      if(userID.length < 6){
+        alert("아이디가 짧습니다. 6자 이상 입력해주세요.");
+        return;
+      }
+      if(userPw1 !== userPw2){
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(!emailRegex.test(userEmail)) {
+        alert("유효한 이메일 형식을 입력해주세요.");
+        return;
+      }
+
+      // 회원가입 성공 시 알림창으로 정보 표시
+      const message = `
+        회원가입이 완료되었습니다!
+        
+        아이디: ${userID}
+        생년월일: ${userBirthdate}
+        성별: ${userGender}
+        이메일: ${userEmail}
+      `;
+      alert(message);
+      
+      // 알림창이 닫힌 후 폼 초기화
+      form.reset();
+    });
+  </script>
+</body>
+</html>
